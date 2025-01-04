@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Navbar } from './components/nav'
 import Footer from './components/footer'
+import Header from './components/header'
 import { baseUrl } from './sitemap'
 
 export const metadata: Metadata = {
@@ -41,6 +42,7 @@ export default function RootLayout({
     <html>
       <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
         <main className="flex-auto min-w-0 mt-12 flex flex-col px-2 md:px-10 md:py-8 shadow-main">
+          <Header />
           <Navbar />
           {children}
           <Footer />
