@@ -1,38 +1,43 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-
-type Metadata = {
-  title: string
-  publishedAt: string
-  summary: string
-  image?: string
-}
+import remarkGfm from 'remark-gfm'
+import { bundleMDX } from 'mdx-bundler'
 
 function getMDXFiles(dir: fs.PathLike) {
   return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx')
 }
 
-function readMDXFile(filePath: fs.PathOrFileDescriptor) {
+async function readMDXFile(filePath: fs.PathOrFileDescriptor) {
   const rawContent = fs.readFileSync(filePath, 'utf-8')
-  return matter(rawContent)
+  const { code } = await bundleMDX({
+    source: rawContent,
+    mdxOptions: (options) => {
+      options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm]
+      return options
+    },
+  })
+  return {
+    code,
+    frontmatter: matter(rawContent),
+  }
 }
 
-function getMDXData(dir: fs.PathLike) {
+async function getMDXData(dir: fs.PathLike) {
   const mdxFiles = getMDXFiles(dir)
-  return mdxFiles.map((file) => {
-    const { data, content } = readMDXFile(path.join(dir.toString(), file))
+  return Promise.all(mdxFiles.map(async (file) => {
+    const { code, frontmatter } = await readMDXFile(path.join(dir.toString(), file))
     const slug = path.basename(file, path.extname(file))
 
     return {
-      metadata: data,
+      metadata: frontmatter.data,
       slug,
-      content,
+      code,
     }
-  })
+  }))
 }
 
-export function getBlogPosts() {
+export async function getBlogPosts() {
   return getMDXData(path.join(process.cwd(), 'static', 'posts'))
 }
 

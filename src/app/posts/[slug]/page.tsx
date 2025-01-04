@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation'
-import { CustomMDX } from '@/app/components/mdx'
 import { formatDate, getBlogPosts } from '@/app/posts/utils'
 import { baseUrl } from '@/app/sitemap'
+import { getMDXComponent } from 'mdx-bundler/client'
 
 export async function generateStaticParams() {
-  const posts = getBlogPosts()
+  const posts = await getBlogPosts()
 
   return posts.map((post) => ({
     slug: post.slug,
@@ -13,7 +13,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: any) {
   const { slug } = await params
-  const post = getBlogPosts().find((post) => post.slug === slug)
+  const posts = await getBlogPosts()
+  const post = posts.find((post) => post.slug === slug)
   if (!post) {
     return
   }
@@ -54,12 +55,14 @@ export async function generateMetadata({ params }: any) {
 
 export default async function Post({ params } : any) {
   const { slug } = await params
-  const post = getBlogPosts().find((post) => post.slug === slug)
+  const posts = await getBlogPosts()
+  const post = posts.find((post) => post.slug === slug)
 
   if (!post) {
     notFound()
   }
 
+  const MDXComponent = getMDXComponent(post.code)
   return (
     <section>
       <script
@@ -93,7 +96,7 @@ export default async function Post({ params } : any) {
         </p>
       </div>
       <article className="prose">
-        <CustomMDX source={post.content} />
+        <MDXComponent/>
       </article>
     </section>
   )
