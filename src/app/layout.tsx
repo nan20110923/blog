@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html>
       <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
-        <main className="flex-auto min-w-0 mt-12 flex flex-col px-2 md:px-10 md:py-8 shadow-custom">
+        <main className="flex-auto min-w-0 mt-12 flex flex-col px-2 md:px-10 md:py-8 shadow-main">
           <Navbar />
           {children}
           <Footer />
