@@ -1,6 +1,5 @@
 import fs from 'fs'
 import path from 'path'
-import matter from 'gray-matter'
 import remarkGfm from 'remark-gfm'
 import { bundleMDX } from 'mdx-bundler'
 
@@ -10,7 +9,7 @@ function getMDXFiles(dir: fs.PathLike) {
 
 async function readMDXFile(filePath: fs.PathOrFileDescriptor) {
   const rawContent = fs.readFileSync(filePath, 'utf-8')
-  const { code } = await bundleMDX({
+  const { code, frontmatter } = await bundleMDX({
     source: rawContent,
     mdxOptions: (options) => {
       options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm]
@@ -19,7 +18,7 @@ async function readMDXFile(filePath: fs.PathOrFileDescriptor) {
   })
   return {
     code,
-    frontmatter: matter(rawContent),
+    frontmatter,
   }
 }
 
@@ -30,7 +29,7 @@ async function getMDXData(dir: fs.PathLike) {
     const slug = path.basename(file, path.extname(file))
 
     return {
-      metadata: frontmatter.data,
+      metadata: frontmatter,
       slug,
       code,
     }
