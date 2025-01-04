@@ -1,8 +1,8 @@
 import { BlogPosts } from '@/app/components/posts'
 
 export const metadata = {
-  title: 'Posts',
-  description: 'Read my post.',
+  title: '博客',
+  description: '楠的博客',
 }
 
 export default function Page() {

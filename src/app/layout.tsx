@@ -7,16 +7,16 @@ import { baseUrl } from './sitemap'
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "NaN's Blog",
-    template: "%s | NaN's Blog",
+    default: "楠 / NaN",
+    template: "%s | 楠 / NaN",
   },
-  description: "NaN's Blog",
+  description: "楠的个人主页",
   openGraph: {
-    title: "NaN's Blog",
-    description: "NaN's Blog",
+    title: "楠 / NaN",
+    description: "楠的个人主页",
     url: baseUrl,
-    siteName: "NaN's Blog",
-    locale: 'en_US',
+    siteName: "楠 / NaN",
+    locale: 'zh_CN',
     type: 'website',
   },
   robots: {
