@@ -3,7 +3,7 @@ import { baseUrl } from "../sitemap";
 
 export default function Header() {
   return (
-    <header className="mb-8">
+    <header>
       <Link
         key={baseUrl}
         href={'/'}

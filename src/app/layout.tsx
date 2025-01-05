@@ -41,9 +41,11 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
-        <main className="flex-auto min-w-0 mt-12 flex flex-col px-2 md:px-10 md:py-8 shadow-main">
-          <Header />
+      <body className="antialiased max-w-xl md:px-10 md:py-8 mx-auto">
+        <main className="flex-auto min-w-0 flex flex-col px-4 md:px-10 shadow-main">
+          <div className="mt-10 mb-8">
+           <Header />
+          </div>
           <Navbar />
           {children}
           <Footer />
