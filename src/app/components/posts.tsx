@@ -16,20 +16,14 @@ export async function BlogPosts() {
           return 1
         })
         .map((post) => (
-          <Link
-            key={post.slug}
-            className="flex flex-col space-y-1 mb-4"
-            href={`/posts/${post.slug}`}
-          >
-            <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
-              <p className="text-neutral-600 tabular-nums">
-                {formatDate(post.metadata.publishedAt, false)}
-              </p>
-              <p className="text-neutral-900 tracking-tight">
-                {post.metadata.title}
-              </p>
-            </div>
-          </Link>
+          <div className="flex flex-col mb-4 w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
+            <p className="text-neutral-600 tabular-nums">
+              {formatDate(post.metadata.publishedAt, false)}
+            </p>
+            <a className="post text-neutral-900 tracking-tight" href={`/posts/${post.slug}`}>
+              {post.metadata.title}
+            </a>
+          </div>
         ))}
     </div>
   )

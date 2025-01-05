@@ -16,3 +16,11 @@ body {
 main {
   background: #FFFFFF;
 }
+
+a.post:hover {
+  text-decoration: underline;
+}
+
+a.post:visited {
+  color:rgb(151, 151, 151);
+}
