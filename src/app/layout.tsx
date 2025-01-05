@@ -4,6 +4,7 @@ import { Navbar } from './components/nav'
 import Footer from './components/footer'
 import Header from './components/header'
 import { baseUrl } from './sitemap'
+import { GoogleTagManager } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -48,6 +49,7 @@ export default function RootLayout({
           <Footer />
         </main>
       </body>
+      <GoogleTagManager gtmId='GTM-MBNKF663'/>
     </html>
   )
 }
